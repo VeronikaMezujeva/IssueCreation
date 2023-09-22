@@ -81,6 +81,19 @@ class IssueModal {
         cy.contains(issueTitle).should('not.exist');
     }
 
+    ensureIssueIsDeletedFromTheBoard(amountOfIssuesAfterDeletion) {
+        cy.get(this.backlogList).should('be.visible').and('have.length', '1').within(() => {
+            cy.get(this.issuesList)
+                .should('have.length', amountOfIssuesAfterDeletion);
+        });
+    }
+
+    validateAmountOfIssuesAfterCancelation(amountOfIssuesAfterCancelDeletion) {
+        cy.get(this.backlogList).should('be.visible').and('have.length', '1').within(() => {
+            cy.get(this.issuesList)
+                .should('have.length', amountOfIssuesAfterCancelDeletion);
+        });
+    }
     validateIssueVisibilityState(issueTitle, isVisible = true) {
         cy.get(this.issueDetailModal).should('not.exist');
         cy.reload();
